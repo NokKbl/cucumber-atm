@@ -46,10 +46,7 @@ public class BankAccount {
       @param amount the amount of money to deposit
    */
    public void withdraw(double amount) throws NotEnoughBalanceException {
-//       if (amount > balance)
-//         throw new NotEnoughBalanceException("cannot withdraw more than balance");
-//       balance = balance - amount;
-       if(nego >= 0.0){
+       if(nego > 0.0){
           if(amount <= (balance + nego)) {
              nego -= Math.abs(balance - amount);
              balance = 0;
