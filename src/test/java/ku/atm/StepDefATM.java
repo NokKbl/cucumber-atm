@@ -54,6 +54,7 @@ public class StepDefATM {
         assertThrows(NotEnoughBalanceException.class,
                 () -> atm.withdraw(amount));
     }
+
     @Then("my account balance is (.*)")
     public void my_account_balance_is(double balance) {
         assertEquals(balance, atm.getBalance());
@@ -70,4 +71,26 @@ public class StepDefATM {
                      bank.findCustomer(id).getAccount().getBalance());
     }
 
+
+    @Given("customer with id (\\d+) and pin (\\d+) with balance (.*) and negotiated amount is (.*) exists")
+    public void a_customer_with_id_and_pin_with_balance_and_negotiated_amount_exists(int id, int pin, double balance, double nego){
+        bank.addCustomer(new Customer(id, pin, balance, nego));
+    }
+
+    @When("I overdraw (.*) with OD account")
+    public void i_can_overdraw_from_atm_with_od(double amount) throws NotEnoughBalanceException {
+        atm.withdraw(amount);
+    }
+
+    @When("I exceed negotiated amount by overdraw (.*) with OD account")
+    public void i_can_overdraw_from_atm_with_od_exceed(double amount)  throws NotEnoughBalanceException{
+        assertThrows(NotEnoughBalanceException.class,
+                () -> atm.withdraw(amount));
+    }
+
+    @Then("my account balance will be (.*) with (.*) negotiated amount left")
+    public void customer_balance_and_negotiated_left(double balance, double nego){
+        assertEquals(balance, atm.getBalance());
+        assertEquals(nego, atm.getNegotiatedAmount());
+    }
 }

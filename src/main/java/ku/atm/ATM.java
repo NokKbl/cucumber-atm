@@ -106,4 +106,10 @@ public class ATM {
 		return state;
 	}
 
+	public double getNegotiatedAmount(){
+		if(state == TRANSACT){
+			return currentAccount.getNegotiatedAmount();
+		}
+		return -1;
+	}
 }

@@ -19,8 +19,14 @@ public class Customer {
       account = new BankAccount(currentBalance);
    }
 
+   public Customer(int aNumber, int aPin, double currentBalance, double negoAmount) {
+      customerNumber = aNumber;
+      pin = aPin;
+      account = new BankAccount(currentBalance, negoAmount);
+   }
+
    public Customer(int aNumber, int aPin) {
-      this(aNumber, aPin, 0);
+      this(aNumber, aPin, 0, 0);
    }
 
    public int getCustomerNumber() {
